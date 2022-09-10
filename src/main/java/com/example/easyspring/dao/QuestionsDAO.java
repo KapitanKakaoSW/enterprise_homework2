@@ -2,24 +2,27 @@ package com.example.easyspring.dao;
 
 import com.example.easyspring.entities.Question;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Setter
+@Component
 public class QuestionsDAO {
 
-    private ClassPathResource resource;
+    private String resourcePath;
 
-    public List<Question> loadQuestions() throws IOException {
+    @SneakyThrows
+    public List<Question> loadQuestions() {
 
         List<Question> questions = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new ClassPathResource(resourcePath).getInputStream()));
 
         String line;
 
